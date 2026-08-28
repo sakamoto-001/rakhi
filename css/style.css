@@ -1,0 +1,2382 @@
+/* ==========================================================================
+   RakhiVerse - Luxury Festive AI Avatar & Raksha Bandhan Ceremony Platform
+   Design System: Royal Festive Glassmorphism & High-Engagement Micro-Interactions
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap');
+
+:root {
+  --font-display: 'Cinzel Decorative', Georgia, serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Color Palette - Royal Auspicious Festive */
+  --bg-primary: #0a0414;
+  --bg-secondary: #130924;
+  --bg-tertiary: #1f0e38;
+  --bg-card: rgba(26, 14, 46, 0.7);
+  --bg-card-hover: rgba(38, 20, 68, 0.85);
+  
+  --gold-300: #ffe885;
+  --gold-400: #ffd700;
+  --gold-500: #e5b800;
+  --gold-600: #c69500;
+  --gold-glow: rgba(255, 215, 0, 0.4);
+
+  --saffron-400: #ff9933;
+  --saffron-500: #ff7700;
+  --saffron-glow: rgba(255, 119, 0, 0.35);
+
+  --kumkum-400: #ff2a5f;
+  --kumkum-500: #d90429;
+  --kumkum-600: #9e0024;
+  --kumkum-glow: rgba(217, 4, 41, 0.35);
+
+  --royal-blue: #2563eb;
+  --emerald-400: #10b981;
+  --purple-glow: rgba(168, 85, 247, 0.3);
+
+  --text-primary: #ffffff;
+  --text-secondary: #e2d9f3;
+  --text-muted: #a393c2;
+  
+  --border-gold: rgba(255, 215, 0, 0.25);
+  --border-glass: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
+  --gold-box-shadow: 0 0 25px rgba(255, 215, 0, 0.3), inset 0 0 15px rgba(255, 215, 0, 0.15);
+  
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-full: 9999px;
+  
+  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Reset & Global */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  background-image: 
+    radial-gradient(circle at 15% 15%, rgba(217, 4, 41, 0.15) 0%, transparent 45%),
+    radial-gradient(circle at 85% 25%, rgba(255, 153, 51, 0.15) 0%, transparent 45%),
+    radial-gradient(circle at 50% 85%, rgba(168, 85, 247, 0.12) 0%, transparent 55%),
+    radial-gradient(circle at 50% 40%, rgba(255, 215, 0, 0.06) 0%, transparent 60%);
+  background-attachment: fixed;
+}
+
+/* Background Canvas for Particles & Floating Diyas */
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ceremony Canvas Layer for Petals & Confetti */
+#celebration-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 999;
+}
+
+/* App Container */
+.app-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Navigation Bar */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(13, 5, 26, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-gold);
+  padding: 0.85rem 1.5rem;
+  transition: var(--transition-smooth);
+}
+
+.nav-content {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--text-primary);
+  cursor: pointer;
+}
+
+.brand-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #ff9933, #d90429, #ffd700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 0 15px rgba(255, 153, 51, 0.6);
+  animation: pulse-glow 3s infinite alternate;
+}
+
+.brand-text h1 {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, #fff, #ffe885 50%, #ff9933 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand-tag {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--gold-400);
+  font-weight: 700;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  list-style: none;
+}
+
+.nav-link {
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: #fff;
+  background: rgba(255, 215, 0, 0.12);
+  border-color: rgba(255, 215, 0, 0.3);
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
+}
+
+.nav-link.brain-tab {
+  background: rgba(168, 85, 247, 0.15);
+  border-color: rgba(168, 85, 247, 0.4);
+  color: #d8b4fe;
+}
+.nav-link.brain-tab:hover, .nav-link.brain-tab.active {
+  background: rgba(168, 85, 247, 0.3);
+  color: #fff;
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.5);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Sound Button */
+.btn-sound {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-glass);
+  color: var(--gold-300);
+  border-radius: var(--radius-full);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  position: relative;
+}
+
+.btn-sound:hover {
+  background: rgba(255, 215, 0, 0.2);
+  border-color: var(--gold-400);
+  transform: scale(1.08);
+}
+
+.btn-sound.playing::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  border: 2px solid var(--gold-400);
+  animation: ring-pulse 1.5s infinite;
+}
+
+/* Primary Festive Button */
+.btn-festive {
+  background: linear-gradient(135deg, #ff9933 0%, #d90429 50%, #b5179e 100%);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.65rem 1.4rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(217, 4, 41, 0.45);
+  transition: var(--transition-bounce);
+}
+
+.btn-festive:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 30px rgba(255, 153, 51, 0.6), 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+.btn-festive:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, #ffd700 0%, #ff9933 100%);
+  color: #1a0b00;
+  font-weight: 800;
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+}
+.btn-gold:hover {
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.7);
+}
+
+.btn-outline {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  border: 1px solid var(--border-gold);
+}
+.btn-outline:hover {
+  background: rgba(255, 215, 0, 0.15);
+  border-color: var(--gold-400);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+/* Views & Layout */
+main {
+  flex: 1;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.view-section {
+  display: none;
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.view-section.active-view {
+  display: block;
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--glass-shadow);
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-400), var(--saffron-400), transparent);
+  opacity: 0.7;
+}
+
+.glass-card.gold-border {
+  border-color: var(--border-gold);
+}
+
+.glass-card.gold-border:hover {
+  border-color: var(--gold-400);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.7), 0 0 25px rgba(255, 215, 0, 0.2);
+}
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+.hero-wrapper {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3rem;
+  align-items: center;
+  padding: 2.5rem 0 4rem;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 215, 0, 0.12);
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold-300);
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 3.4rem;
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  font-weight: 900;
+}
+
+.hero-title .gradient-text {
+  background: linear-gradient(135deg, #fff 0%, #ffd700 40%, #ff9933 70%, #ff2a5f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-desc {
+  font-size: 1.18rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 2.2rem;
+  max-width: 580px;
+}
+
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+}
+
+.hero-stats-row {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-stat-num {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--gold-400);
+  font-family: var(--font-sans);
+}
+
+.hero-stat-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* 3D Showcase Card in Hero */
+.hero-visual-card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  background: linear-gradient(145deg, rgba(38, 20, 68, 0.9), rgba(19, 9, 36, 0.95));
+  border: 1px solid var(--border-gold);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 153, 51, 0.25);
+  overflow: hidden;
+}
+
+.hero-visual-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.hero-visual-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.hero-visual-card:hover .hero-visual-media img {
+  transform: scale(1.05);
+}
+
+.rakhi-float-badge {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background: rgba(13, 5, 26, 0.88);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.rakhi-badge-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--gold-400);
+}
+
+/* Feature Steps Section */
+.section-title-wrap {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+}
+
+.section-title-wrap h2 {
+  font-family: var(--font-display);
+  font-size: 2.3rem;
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, #fff, #ffe885 60%, #ff9933);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section-title-wrap p {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.step-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 1.75rem 1.25rem;
+  position: relative;
+  transition: var(--transition-smooth);
+}
+
+.step-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold-400);
+  background: var(--bg-card-hover);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 215, 0, 0.2);
+}
+
+.step-number {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: rgba(255, 215, 0, 0.15);
+}
+
+.step-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, rgba(255, 153, 51, 0.2), rgba(217, 4, 41, 0.2));
+  border: 1px solid var(--border-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin-bottom: 1.2rem;
+  color: var(--gold-400);
+}
+
+.step-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.6rem;
+  color: #fff;
+}
+
+.step-card p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   PHASE 1 & 2: BROTHER STUDIO - AVATAR CREATION
+   ========================================================================== */
+.studio-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.upload-zone {
+  border: 2px dashed rgba(255, 215, 0, 0.35);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.02);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  position: relative;
+}
+
+.upload-zone:hover, .upload-zone.dragover {
+  border-color: var(--gold-400);
+  background: rgba(255, 215, 0, 0.06);
+  box-shadow: inset 0 0 30px rgba(255, 215, 0, 0.1);
+}
+
+.upload-icon {
+  font-size: 3rem;
+  color: var(--gold-400);
+  margin-bottom: 1rem;
+  animation: bounce-subtle 2s infinite ease-in-out;
+}
+
+.upload-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.webcam-container {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.webcam-video-wrap {
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 4/3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 2px solid var(--gold-400);
+  background: #000;
+}
+
+.webcam-video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Quick Samples Picker */
+.samples-picker {
+  margin-top: 1.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.samples-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.samples-row {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.sample-chip {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-glass);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  font-size: 0.82rem;
+  transition: var(--transition-fast);
+}
+
+.sample-chip:hover {
+  background: rgba(255, 215, 0, 0.15);
+  border-color: var(--gold-400);
+}
+
+.sample-chip img {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Form Controls */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.form-input {
+  width: 100%;
+  background: rgba(13, 5, 26, 0.7);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.2rem;
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.form-input:focus {
+  border-color: var(--gold-400);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.25);
+  background: rgba(13, 5, 26, 0.95);
+}
+
+/* 10 Style Selector Grid */
+.styles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.9rem;
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  margin-bottom: 1.8rem;
+}
+
+.style-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 0.8rem 0.6rem;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  position: relative;
+}
+
+.style-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--gold-400);
+  background: rgba(255, 215, 0, 0.08);
+}
+
+.style-card.selected {
+  border-color: var(--gold-400);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.18), rgba(217, 4, 41, 0.15));
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.35);
+}
+
+.style-card.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 20px;
+  height: 20px;
+  background: var(--gold-400);
+  color: #000;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.style-icon-emoji {
+  font-size: 1.8rem;
+  margin-bottom: 0.4rem;
+}
+
+.style-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.2rem;
+}
+
+.style-badge-tag {
+  font-size: 0.68rem;
+  color: var(--gold-300);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radius-sm);
+  display: inline-block;
+}
+
+/* Avatar Preview & Generation Canvas */
+.preview-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: rgba(13, 5, 26, 0.6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-gold);
+  padding: 1.5rem;
+  min-height: 380px;
+}
+
+.avatar-canvas-wrapper {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid var(--gold-400);
+  box-shadow: 0 0 35px rgba(255, 215, 0, 0.45);
+  margin-bottom: 1.5rem;
+}
+
+#avatar-canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* AI Generation Progress Bar */
+.ai-progress-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 4, 20, 0.92);
+  backdrop-filter: blur(10px);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+  z-index: 20;
+  padding: 2rem;
+  text-align: center;
+}
+
+.ai-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(255, 215, 0, 0.2);
+  border-top-color: var(--gold-400);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1.2rem;
+}
+
+.ai-status-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--gold-300);
+  margin-bottom: 0.5rem;
+}
+
+.ai-sub-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.progress-bar-track {
+  width: 80%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  margin-top: 1rem;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff9933, #ffd700, #ff2a5f);
+  border-radius: inherit;
+  transition: width 0.3s ease;
+}
+
+/* Link Modal / Generated Link Card */
+.generated-link-card {
+  margin-top: 1.5rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  padding: 1.2rem;
+  width: 100%;
+}
+
+.link-input-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+/* ==========================================================================
+   PHASE 4: SISTER LANDING VIEW
+   ========================================================================== */
+.sister-landing-wrap {
+  max-width: 680px;
+  margin: 1.5rem auto;
+  text-align: center;
+}
+
+.sister-avatar-halo {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  margin: 0 auto 1.8rem;
+  border-radius: 50%;
+  padding: 6px;
+  background: linear-gradient(135deg, #ffd700, #ff9933, #d90429);
+  box-shadow: 0 0 45px rgba(255, 215, 0, 0.5);
+  animation: halo-rotate 8s linear infinite;
+}
+
+.sister-avatar-halo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #130924;
+}
+
+.garland-decoration {
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(13, 5, 26, 0.9);
+  border: 1px solid var(--border-gold);
+  padding: 0.3rem 0.9rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gold-400);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   PHASE 5: CINEMATIC INTERACTIVE RAKHI CEREMONY
+   ========================================================================== */
+.ceremony-pavilion {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, rgba(26, 10, 48, 0.92) 0%, rgba(13, 4, 25, 0.98) 100%);
+  border: 2px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 50px rgba(255, 153, 51, 0.2);
+  overflow: hidden;
+}
+
+/* Ceremony Header & Step Tracker */
+.ceremony-tracker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  overflow-x: auto;
+}
+
+.ceremony-step-dot {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.ceremony-step-dot .dot-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--border-glass);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  transition: var(--transition-smooth);
+}
+
+.ceremony-step-dot.active {
+  color: var(--gold-400);
+}
+
+.ceremony-step-dot.active .dot-circle {
+  border-color: var(--gold-400);
+  background: var(--gold-400);
+  color: #000;
+  font-weight: 900;
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+}
+
+.ceremony-step-dot.completed .dot-circle {
+  background: var(--emerald-400);
+  border-color: var(--emerald-400);
+  color: #000;
+}
+
+/* Ceremony Stage Canvas / Interactive Area */
+.ceremony-stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  min-height: 480px;
+}
+
+.brother-avatar-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.stage-avatar-frame {
+  position: relative;
+  width: 280px;
+  height: 280px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 3px solid var(--gold-400);
+  box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
+  background: #000;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.stage-avatar-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* Forehead Tilak Target & Dynamic Tap Mark */
+.forehead-tilak-target {
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 215, 0, 0.9);
+  display: none;
+  cursor: pointer;
+  animation: pulse-glow 1s infinite;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.forehead-tilak-mark {
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 28px;
+  background: linear-gradient(180deg, #d90429 0%, #ff9933 60%, #ffd700 100%);
+  border-radius: 6px;
+  box-shadow: 0 0 18px rgba(217, 4, 41, 0.95), 0 0 35px rgba(255, 215, 0, 0.8);
+  display: none;
+  z-index: 12;
+  animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
+}
+
+.forehead-tilak-mark::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffd700;
+  box-shadow: 0 0 8px #ffd700;
+}
+
+/* Sacred Rakhi Pedestal Drop Target & Badge - Positioned Cleanly Below Avatar (Never on Face) */
+.wrist-drop-target {
+  margin-top: 1.25rem;
+  width: 240px;
+  height: 52px;
+  border-radius: var(--radius-full);
+  border: 2px dashed var(--gold-400);
+  background: rgba(255, 215, 0, 0.14);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--gold-300);
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.25);
+  transition: all var(--transition-fast);
+  position: relative;
+  z-index: 10;
+}
+
+.wrist-drop-target.drag-over {
+  background: rgba(255, 215, 0, 0.35);
+  border-style: solid;
+  transform: scale(1.05);
+  box-shadow: 0 0 35px rgba(255, 215, 0, 0.6);
+}
+
+.wrist-tied-rakhi-badge {
+  margin-top: 1.25rem;
+  padding: 0.65rem 1.5rem;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, rgba(217, 4, 41, 0.95), rgba(255, 153, 51, 0.95));
+  border: 2px solid var(--gold-400);
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 0 35px rgba(255, 215, 0, 0.5);
+  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  z-index: 12;
+}
+
+.wrist-tied-rakhi-badge:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 45px rgba(255, 215, 0, 0.7);
+}
+
+/* Interactive Ceremony Tray / Tools */
+.ceremony-controls-box {
+  background: rgba(13, 5, 26, 0.7);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.ceremony-step-instruction {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.4;
+}
+
+.ceremony-step-instruction span {
+  color: var(--gold-400);
+}
+
+/* Interactive Diya Component */
+.diya-interactive-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-gold);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.diya-interactive-wrap:hover {
+  background: rgba(255, 215, 0, 0.08);
+}
+
+.diya-brass-lamp {
+  position: relative;
+  width: 90px;
+  height: 50px;
+  background: linear-gradient(180deg, #ffd700 0%, #b38600 100%);
+  border-radius: 0 0 50px 50px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.diya-brass-lamp::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 10%;
+  right: 10%;
+  height: 12px;
+  background: #e6b800;
+  border-radius: 50%;
+}
+
+.diya-wick-flame {
+  position: absolute;
+  top: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 22px;
+  height: 38px;
+  background: radial-gradient(ellipse at bottom, #ffffff 0%, #ffd700 40%, #ff4500 80%, transparent 100%);
+  border-radius: 50% 50% 35% 35%;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  filter: drop-shadow(0 0 15px #ff7700);
+}
+
+.diya-wick-flame.lit {
+  opacity: 1;
+  animation: flicker 0.15s infinite alternate ease-in-out;
+}
+
+/* Interactive Tilak Wand */
+.tilak-wand-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.2rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  border: 1px solid var(--border-glass);
+}
+
+.tilak-bowl {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ff0033, #80001a);
+  border: 3px solid #ffd700;
+  box-shadow: 0 0 15px rgba(255, 0, 51, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+/* Draggable Rakhi Element */
+.draggable-rakhi-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1.5rem;
+  background: rgba(255, 215, 0, 0.05);
+  border: 2px solid var(--gold-400);
+  border-radius: var(--radius-md);
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.draggable-rakhi-wrap:active {
+  cursor: grabbing;
+  transform: scale(1.08);
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+}
+
+.draggable-rakhi-img {
+  width: 140px;
+  height: auto;
+  filter: drop-shadow(0 4px 15px rgba(255, 215, 0, 0.6));
+  pointer-events: none;
+}
+
+/* Sweets Offering Step */
+.sweets-tray-wrap {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.sweet-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  padding: 0.8rem 1.2rem;
+  text-align: center;
+  cursor: pointer;
+  font-size: 1.8rem;
+  transition: var(--transition-bounce);
+}
+
+.sweet-item:hover {
+  transform: scale(1.15) translateY(-5px);
+  background: rgba(255, 215, 0, 0.18);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+/* Ceremony Complete Banner */
+.ceremony-congrats-card {
+  display: none;
+  text-align: center;
+  padding: 2rem;
+  animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.congrats-title {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  background: linear-gradient(135deg, #ffd700, #ff9933, #ff2a5f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+
+.blessing-quote {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--gold-300);
+  margin-bottom: 1.8rem;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   PHASE 6: PERSONALIZED CERTIFICATE VIEW & CANVAS
+   ========================================================================== */
+.certificate-preview-container {
+  max-width: 880px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.certificate-frame {
+  background: #fffdf5;
+  color: #1a0b00;
+  border-radius: 12px;
+  padding: 2.8rem 3rem;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 50px rgba(255, 215, 0, 0.3);
+  border: 14px solid #7d0a0a;
+  outline: 4px solid #d4af37;
+  outline-offset: -9px;
+  background-image: 
+    radial-gradient(circle at center, rgba(255, 248, 220, 0.9) 0%, rgba(255, 235, 179, 0.6) 100%);
+}
+
+.cert-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.cert-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: #7d0a0a;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.3rem;
+}
+
+.cert-subtitle {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #8c6d1f;
+}
+
+.cert-sloka {
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  color: #5c3a00;
+  margin: 1.2rem auto;
+  max-width: 620px;
+  line-height: 1.5;
+  border-top: 1px solid rgba(212, 175, 55, 0.4);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.4);
+  padding: 0.6rem 0;
+}
+
+.cert-body-grid {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 2rem;
+  align-items: center;
+  margin: 1.8rem 0;
+}
+
+.cert-avatar-img {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #d4af37;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.cert-text-lead {
+  font-size: 1.05rem;
+  color: #333;
+  line-height: 1.7;
+}
+
+.cert-names-highlight {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: #7d0a0a;
+  font-weight: 800;
+}
+
+.cert-footer-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed rgba(140, 109, 31, 0.4);
+}
+
+.cert-seal {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffd700, #b38600);
+  border: 3px dashed #7d0a0a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #7d0a0a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: rotate(-10deg);
+}
+
+.cert-actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   PHASE 7 & 8: BROTHER DASHBOARD & ANALYTICS
+   ========================================================================== */
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-icon-corner {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 1.6rem;
+  opacity: 0.4;
+}
+
+.metric-value {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--gold-400);
+  margin: 0.4rem 0 0.2rem;
+}
+
+.metric-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.metric-trend {
+  font-size: 0.78rem;
+  color: var(--emerald-400);
+  margin-top: 0.4rem;
+  font-weight: 600;
+}
+
+/* Dashboard Tables */
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.custom-table th {
+  padding: 0.9rem 1.2rem;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--gold-300);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.custom-table td {
+  padding: 1rem 1.2rem;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.custom-table tr:hover td {
+  background: rgba(255, 215, 0, 0.04);
+}
+
+/* ==========================================================================
+   ANTIGRAVITY AI AGENT SYSTEM UI (#brain)
+   ========================================================================== */
+.brain-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.terminal-box {
+  background: #080312;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.88rem;
+  color: #c084fc;
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.2);
+  max-height: 480px;
+  overflow-y: auto;
+}
+
+.terminal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+  color: #a855f7;
+  font-weight: bold;
+}
+
+.agent-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.6rem;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid var(--emerald-400);
+  border-radius: var(--radius-full);
+  color: var(--emerald-400);
+  font-size: 0.75rem;
+}
+
+.agent-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.agent-mini-card {
+  background: rgba(168, 85, 247, 0.08);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+}
+
+.agent-mini-card h4 {
+  font-size: 0.95rem;
+  color: #f3e8ff;
+  margin-bottom: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.agent-mini-card p {
+  font-size: 0.78rem;
+  color: #d8b4fe;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   ANIMATIONS & KEYFRAMES
+   ========================================================================== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes flicker {
+  0% { transform: translateX(-50%) scale(1) rotate(-1deg); }
+  50% { transform: translateX(-50%) scale(1.1, 0.95) rotate(2deg); filter: drop-shadow(0 0 22px #ff4500); }
+  100% { transform: translateX(-50%) scale(0.95, 1.05) rotate(-2deg); filter: drop-shadow(0 0 16px #ffd700); }
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
+  100% { box-shadow: 0 0 35px rgba(255, 215, 0, 0.7), 0 0 15px rgba(255, 153, 51, 0.5); }
+}
+
+@keyframes ring-pulse {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+@keyframes halo-rotate {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ==========================================================================
+   NEW INTERACTIVE COMPONENTS & ENHANCEMENTS
+   ========================================================================== */
+
+/* Mobile Hamburger Button */
+.btn-mobile-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 32px;
+  height: 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.btn-mobile-menu span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: var(--gold-400);
+  border-radius: 3px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-mobile-menu.open span:nth-child(1) {
+  transform: translateY(9.5px) rotate(45deg);
+}
+
+.btn-mobile-menu.open span:nth-child(2) {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+
+.btn-mobile-menu.open span:nth-child(3) {
+  transform: translateY(-9.5px) rotate(-45deg);
+}
+
+/* Mobile Navigation Drawer */
+.mobile-nav-drawer {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(19, 9, 36, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-gold);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+  padding: 1.25rem 1.5rem;
+  z-index: 999;
+  animation: slideDownNav 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.mobile-nav-drawer.open {
+  display: block;
+}
+
+@keyframes slideDownNav {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mobile-nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobile-nav-link {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+  color: var(--gold-300);
+  background: rgba(255, 215, 0, 0.1);
+  transform: translateX(6px);
+}
+
+.mobile-nav-link.mobile-brain-link {
+  color: #c084fc;
+}
+
+/* Sound Button & Audio Waves */
+.btn-sound {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  position: relative;
+}
+
+.sound-waves {
+  display: none;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+}
+
+.btn-sound.playing .sound-waves {
+  display: flex;
+}
+
+.sound-waves span {
+  width: 2.5px;
+  height: 100%;
+  background: var(--gold-400);
+  border-radius: 2px;
+  animation: soundDance 1s ease-in-out infinite alternate;
+}
+
+.sound-waves span:nth-child(1) { animation-delay: 0.1s; height: 40%; }
+.sound-waves span:nth-child(2) { animation-delay: 0.3s; height: 85%; }
+.sound-waves span:nth-child(3) { animation-delay: 0.2s; height: 100%; }
+.sound-waves span:nth-child(4) { animation-delay: 0.4s; height: 60%; }
+
+@keyframes soundDance {
+  0% { height: 20%; }
+  100% { height: 100%; }
+}
+
+/* Brother Blessing Card (Sister View) */
+.brother-blessing-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(217, 4, 41, 0.08));
+  border: 1px solid rgba(255, 215, 0, 0.35);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.75rem;
+  margin: 1.25rem auto;
+  max-width: 540px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), inset 0 0 15px rgba(255, 215, 0, 0.05);
+}
+
+.blessing-quote-mark {
+  position: absolute;
+  top: -10px;
+  left: 14px;
+  font-family: Georgia, serif;
+  font-size: 2.5rem;
+  color: var(--gold-400);
+  line-height: 1;
+  opacity: 0.6;
+}
+
+.blessing-quote-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: #fff;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+
+.blessing-quote-author {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--gold-300);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Live Shubh Muhurat Pill */
+.muhurat-live-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #6ee7b7;
+  padding: 0.45rem 1.1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  margin: 0.5rem auto;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #10b981;
+  animation: pulseLiveDot 1.5s infinite;
+}
+
+@keyframes pulseLiveDot {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Ceremony Floating Blessing Ribbon */
+.ceremony-blessing-ribbon {
+  text-align: center;
+  background: rgba(255, 215, 0, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  border-radius: var(--radius-full);
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+  font-style: italic;
+  font-size: 0.92rem;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Target Visual Guidance */
+.target-pulse-ring {
+  position: absolute;
+  inset: -4px;
+  border: 2px dashed var(--gold-400);
+  border-radius: 50%;
+  animation: rotateTargetRing 8s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes rotateTargetRing {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.target-hint {
+  font-size: 0.72rem;
+  color: var(--gold-300);
+  font-weight: 700;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+  pointer-events: none;
+}
+
+/* Congratulations Tied Avatar Medallion */
+.congrats-avatar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1.25rem auto 1rem;
+}
+
+.congrats-tied-avatar-img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--gold-400);
+  box-shadow: 0 0 35px rgba(255, 215, 0, 0.6), 0 0 15px rgba(217, 4, 41, 0.4);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.congrats-tied-avatar-img:hover {
+  transform: scale(1.08) rotate(2deg);
+}
+
+.congrats-tied-badge {
+  display: inline-block;
+  margin-top: -12px;
+  background: linear-gradient(135deg, var(--gold-400), var(--saffron-400));
+  color: #1a0a2e;
+  font-weight: 800;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.85rem;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.congrats-sister-wish {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px dashed rgba(255, 215, 0, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1.25rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  font-style: italic;
+  margin: 1rem auto 0;
+  max-width: 500px;
+}
+
+/* Certificate Sister Wish Box */
+.cert-sister-wish-box {
+  margin-top: 0.85rem;
+  padding: 0.65rem 1rem;
+  background: rgba(255, 255, 255, 0.45);
+  border-left: 3px solid #7d0a0a;
+  font-style: italic;
+  font-size: 0.95rem;
+  color: #5c3a00;
+  line-height: 1.4;
+  border-radius: 0 6px 6px 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (MOBILE-FIRST POLISH)
+   ========================================================================== */
+@media (max-width: 992px) {
+  .hero-wrapper {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2.5rem;
+  }
+  .hero-desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-cta-group {
+    justify-content: center;
+  }
+  .hero-stats-row {
+    justify-content: center;
+  }
+  .steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .studio-grid {
+    grid-template-columns: 1fr;
+  }
+  .ceremony-stage {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .brother-avatar-stage {
+    min-height: 380px;
+  }
+  .metrics-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .brain-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  #desktop-nav-links,
+  .nav-cta-btn {
+    display: none;
+  }
+  .btn-mobile-menu {
+    display: flex;
+  }
+  .navbar {
+    padding: 0.75rem 1rem;
+  }
+  .hero-title {
+    font-size: 2.4rem;
+  }
+  .hero-stats-row {
+    flex-wrap: wrap;
+    gap: 1.25rem;
+  }
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+  .metrics-row {
+    grid-template-columns: 1fr;
+  }
+  .certificate-frame {
+    padding: 1.5rem 1rem;
+    border-width: 10px;
+  }
+  .cert-body-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .cert-avatar-img {
+    margin: 0 auto 1rem;
+  }
+  .cert-title {
+    font-size: 1.8rem;
+  }
+  .cert-sloka {
+    font-size: 0.95rem;
+  }
+  .cert-footer-row {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    text-align: center;
+  }
+  .cert-actions-bar {
+    flex-direction: column;
+  }
+  .cert-actions-bar button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  .brand-text h1 {
+    font-size: 1.2rem;
+  }
+  .stage-avatar-frame {
+    width: 260px;
+    height: 260px;
+  }
+  .diya-brass-lamp {
+    width: 90px;
+    height: 90px;
+  }
+  .ceremony-step-dot span:last-child {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   ROLE NAVIGATION & SWITCHER BADGE
+   ========================================================================== */
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  background: rgba(255, 215, 0, 0.08);
+  color: var(--gold-300);
+}
+.role-badge:hover {
+  background: rgba(255, 215, 0, 0.2);
+  transform: translateY(-1px);
+}
+.role-badge.sister-active {
+  border-color: rgba(255, 105, 180, 0.5);
+  background: rgba(255, 105, 180, 0.15);
+  color: #ffb6c1;
+}
+
+.role-switcher-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1.25rem;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, rgba(255, 105, 180, 0.15), rgba(168, 85, 247, 0.15));
+  border: 1px solid rgba(255, 105, 180, 0.3);
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   ADMIN PANEL STYLING (Telemetry + AntiGravity AI + System Inspector)
+   ========================================================================== */
+.admin-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.admin-status-pills {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.admin-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-glass);
+  color: var(--text-secondary);
+}
+.admin-pill.active-green {
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #34d399;
+  background: rgba(16, 185, 129, 0.1);
+}
+.admin-pill.active-purple {
+  border-color: rgba(168, 85, 247, 0.4);
+  color: #d8b4fe;
+  background: rgba(168, 85, 247, 0.12);
+}
+
+.admin-tabs-nav {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+  border-bottom: 1px solid var(--border-glass);
+  padding-bottom: 0.75rem;
+  overflow-x: auto;
+}
+
+.admin-tab-btn {
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-glass);
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+.admin-tab-btn:hover {
+  background: rgba(255, 215, 0, 0.1);
+  border-color: rgba(255, 215, 0, 0.3);
+  color: #fff;
+}
+.admin-tab-btn.active {
+  background: linear-gradient(135deg, rgba(255, 153, 51, 0.25), rgba(217, 4, 41, 0.25));
+  border-color: var(--gold-400);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(255, 215, 0, 0.25);
+}
+
+.admin-tab-pane {
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+.admin-tab-pane.active-pane {
+  display: block;
+}
+
+/* Admin Lock / Authentication Overlay */
+.admin-auth-overlay {
+  max-width: 440px;
+  margin: 3rem auto;
+  text-align: center;
+  padding: 2.5rem 2rem;
+}
+
+/* Role Selector Cards on Home */
+.portal-selector-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+@media (max-width: 768px) {
+  .portal-selector-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.portal-role-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.75rem;
+  text-align: left;
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+.portal-role-card:hover {
+  border-color: var(--gold-400);
+  transform: translateY(-4px);
+  box-shadow: var(--gold-box-shadow);
+}
+.portal-role-card.sister-portal-card {
+  border-color: rgba(255, 105, 180, 0.3);
+}
+.portal-role-card.sister-portal-card:hover {
+  border-color: #ff69b4;
+  box-shadow: 0 0 25px rgba(255, 105, 180, 0.35);
+}
+
+/* ==========================================================================
+   SACRED RAKHI CELEBRATION VIDEO MODAL & PLAYER
+   ========================================================================== */
+.rakhi-video-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 3, 18, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.25rem;
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+}
+
+.rakhi-video-modal-backdrop.active {
+  opacity: 1;
+}
+
+.rakhi-video-modal-dialog {
+  max-width: 520px;
+  width: 92%;
+  background: linear-gradient(145deg, rgba(32, 14, 52, 0.96), rgba(16, 7, 28, 0.98));
+  border: 2px solid var(--gold-400);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 60px rgba(255, 215, 0, 0.35), 0 25px 50px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+  position: relative;
+  transform: scale(0.92);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.rakhi-video-modal-backdrop.active .rakhi-video-modal-dialog {
+  transform: scale(1);
+}
+
+.rakhi-video-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.1rem 1.4rem;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+  background: rgba(255, 215, 0, 0.05);
+}
+
+.rakhi-video-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--gold-300);
+  background: rgba(255, 215, 0, 0.15);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  display: inline-block;
+  margin-bottom: 0.2rem;
+}
+
+.rakhi-video-title {
+  font-size: 1.25rem;
+  font-family: var(--font-display);
+  color: #fff;
+  margin: 0;
+}
+
+.rakhi-video-wrapper {
+  width: calc(100% - 2.5rem);
+  max-width: 440px;
+  aspect-ratio: 1 / 1;
+  margin: 1rem auto;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--gold-400);
+  box-shadow: 0 0 35px rgba(255, 215, 0, 0.35);
+  overflow: hidden;
+  position: relative;
+}
+
+.rakhi-video-element {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  outline: none;
+  background: #000;
+}
+
+.rakhi-video-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 1rem 1.4rem;
+  border-top: 1px solid rgba(255, 215, 0, 0.15);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.rakhi-video-caption {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+.rakhi-video-actions {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.btn-close-modal {
+  background: rgba(217, 4, 41, 0.25);
+  border: 1px solid rgba(217, 4, 41, 0.5);
+  color: #fff;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.btn-close-modal:hover {
+  background: var(--crimson);
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(217, 4, 41, 0.6);
+}
+
+/* Hover highlights for clickable Rakhi elements */
+.rakhi-float-badge,
+.draggable-rakhi-box,
+.wrist-drop-target,
+#wrist-tied-rakhi,
+#congrats-wrist-rakhi {
+  cursor: pointer;
+  transition: all var(--transition-smooth);
+}
+
+.rakhi-float-badge:hover,
+#congrats-wrist-rakhi:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
+}
+
+

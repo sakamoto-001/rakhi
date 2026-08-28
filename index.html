@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RakhiVerse – Celebrate Raksha Bandhan with AI Avatars & Interactive Ceremonies</title>
+  <meta name="description"
+    content="Create custom AI avatars of brothers and sisters, send unique Raksha Bandhan links, and celebrate with interactive virtual Rakhi ceremonies and certificates.">
+
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪢</text></svg>">
+</head>
+
+<body>
+
+  <!-- Ambient Golden Dust & Stars Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Celebration Petals & Confetti Canvas -->
+  <canvas id="celebration-canvas"></canvas>
+
+  <div class="app-container">
+
+    <!-- Top Navigation Bar -->
+    <header class="navbar">
+      <div class="nav-content">
+        <a class="brand-logo" data-navigate="home">
+          <div class="brand-icon">🪢</div>
+          <div class="brand-text">
+            <h1>RakhiVerse</h1>
+            <span class="brand-tag">AI Celebration Studio</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links (Dynamically adjusted by role in app.js) -->
+        <ul class="nav-links" id="desktop-nav-links">
+          <li><a class="nav-link active" data-navigate="home" data-view="home">Home</a></li>
+          <li><a class="nav-link" data-navigate="create" data-view="create">Create Avatar ✨</a></li>
+          <li><a class="nav-link" data-navigate="certificate" data-view="certificate">Certificate 📜</a></li>
+          <li><a class="nav-link" data-navigate="admin" data-view="admin">🛡️ Admin Panel</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <!-- Role Switcher Badge -->
+          <button id="btn-role-switcher" class="role-badge" title="Click to switch portal view">
+            <span id="role-badge-icon">🚀</span>
+            <span id="role-badge-text">Brother Mode</span>
+          </button>
+
+          <button id="btn-sound-toggle" class="btn-sound" title="Toggle Raksha Bandhan Song & Music">
+            <span id="sound-btn-icon">🎵</span>
+            <span class="sound-waves" id="sound-waves">
+              <span></span><span></span><span></span><span></span>
+            </span>
+          </button>
+          <a class="btn-festive nav-cta-btn" id="nav-cta-action" data-navigate="create">Create Avatar ✨</a>
+          <button id="btn-mobile-menu" class="btn-mobile-menu" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Navigation Drawer -->
+      <div id="mobile-nav-drawer" class="mobile-nav-drawer">
+        <ul class="mobile-nav-list" id="mobile-nav-links">
+          <li><a class="mobile-nav-link active" data-navigate="home">🏠 Home</a></li>
+          <li><a class="mobile-nav-link" data-navigate="create">✨ Create Brother Avatar</a></li>
+          <li><a class="mobile-nav-link" data-navigate="certificate">📜 Certificate</a></li>
+          <li><a class="mobile-nav-link" data-navigate="admin">🛡️ Admin Panel</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- Main Dynamic SPA View Area -->
+    <main>
+
+      <!-- ==========================================================================
+           VIEW 1: HOME / DISCOVERY SHOWCASE
+           ========================================================================== -->
+      <section id="view-home" class="view-section active-view">
+        <div class="hero-wrapper">
+          <div class="hero-content">
+            <div class="hero-badge">
+              <span>✨</span> Powered by AntiGravity Neural AI & Next-Gen Physics
+            </div>
+            <h1 class="hero-title">
+              Celebrate the <span class="gradient-text">Sacred Bond</span> with AI Magic.
+            </h1>
+            <p class="hero-desc">
+              Transform your photo into a stunning royal Indian avatar, generate your unique Raksha Bandhan ceremony
+              link, and let your sister tie a sacred virtual Rakhi with real-time animations, flower petal rain, and
+              ceremonial certificates.
+            </p>
+            <div class="hero-cta-group">
+              <a class="btn-festive" style="font-size: 1.05rem; padding: 0.85rem 1.8rem;" data-navigate="create">
+                Generate Brother Avatar 🚀
+              </a>
+              <a class="btn-festive btn-outline" style="font-size: 1.05rem; padding: 0.85rem 1.8rem;" data-navigate="sister">
+                Sister Ceremony Portal 🌸
+              </a>
+            </div>
+
+            <div class="hero-stats-row">
+              <div class="hero-stat-item">
+                <span class="hero-stat-num">50,000+</span>
+                <span class="hero-stat-label">Virtual Rakhis Tied</span>
+              </div>
+              <div class="hero-stat-item">
+                <span class="hero-stat-num">10 Styles</span>
+                <span class="hero-stat-label">AI Art Models</span>
+              </div>
+              <div class="hero-stat-item">
+                <span class="hero-stat-num">140+</span>
+                <span class="hero-stat-label">Countries Connected</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Showcase 3D Card -->
+          <div class="hero-visual-card">
+            <div class="hero-visual-media">
+              <img src="assets/royal_indian_avatar_1787843850577.jpg" alt="Brother AI Avatar Royal Prince">
+            </div>
+            <div class="rakhi-float-badge">
+              <img src="assets/rakhi_royal_gold_1787843777450.jpg" alt="Sacred Rakhi" class="rakhi-badge-thumb">
+              <div>
+                <div style="font-weight: 700; font-size: 0.92rem; color: #fff;">Royal Vedic Ceremony</div>
+                <div style="font-size: 0.78rem; color: var(--gold-300);">Interactive Diya • Tilak • Petals Rain</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Distinct Portals Section for Brother vs Sister -->
+        <div class="section-title-wrap" style="margin-top: 3.5rem;">
+          <h2>Select Your Celebration Path</h2>
+          <p>Separate personalized experiences designed for Brothers and Sisters.</p>
+        </div>
+
+        <div class="portal-selector-grid">
+          <!-- Brother Path -->
+          <div class="portal-role-card">
+            <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">🚀</div>
+            <div style="display:inline-block; font-size:0.75rem; font-weight:700; color:var(--gold-400); background:rgba(255,215,0,0.15); padding:0.2rem 0.6rem; border-radius:var(--radius-full); margin-bottom:0.5rem;">BROTHER STUDIO</div>
+            <h3 style="font-size: 1.4rem; color: #fff; margin-bottom: 0.5rem;">Create Avatar & Invite Sister</h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 1.5rem; line-height: 1.5;">
+              Upload your photo, select from 10 artistic AI styles, write your sacred promise, and generate a personalized invitation link for your sister.
+            </p>
+            <a class="btn-festive" style="display: inline-block; font-size: 0.9rem;" data-navigate="create">
+              Open Brother Studio ✨
+            </a>
+          </div>
+
+          <!-- Sister Path -->
+          <div class="portal-role-card sister-portal-card">
+            <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">🌸</div>
+            <div style="display:inline-block; font-size:0.75rem; font-weight:700; color:#ff69b4; background:rgba(255,105,180,0.15); padding:0.2rem 0.6rem; border-radius:var(--radius-full); margin-bottom:0.5rem;">SISTER RITUAL PAVILION</div>
+            <h3 style="font-size: 1.4rem; color: #fff; margin-bottom: 0.5rem;">Perform Sacred Virtual Ritual</h3>
+            <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 1.5rem; line-height: 1.5;">
+              Received an invitation from your brother? Light the sacred brass Diya, apply the Chandan Tilak, tie the Rakhi, and receive your certificate of eternal bond.
+            </p>
+            <a class="btn-festive" style="display: inline-block; font-size: 0.9rem; background: linear-gradient(135deg, #ff69b4, #d90429);" data-navigate="sister">
+              Enter Sister Pavilion 🪢
+            </a>
+          </div>
+        </div>
+
+        <!-- 4-Step Flow Steps Grid -->
+        <div class="section-title-wrap">
+          <h2>How RakhiVerse Works</h2>
+          <p>Four effortless steps to create unforgettable digital memories for brothers and sisters worldwide.</p>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <span class="step-number">01</span>
+            <div class="step-icon">📸</div>
+            <h3>1. Upload Photo</h3>
+            <p>Upload a selfie, photo, or snapshot. Our neural engine extracts facial anchors with high fidelity.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-number">02</span>
+            <div class="step-icon">🎨</div>
+            <h3>2. Choose AI Style</h3>
+            <p>Pick from 10 handcrafted styles including Anime Shinkai, Pixar 3D, Royal Indian Prince & Cute Chibi.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-number">03</span>
+            <div class="step-icon">💌</div>
+            <h3>3. Share Unique Link</h3>
+            <p>Send your sister a personalized invitation link via WhatsApp, Instagram, or SMS with 1 click.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-number">04</span>
+            <div class="step-icon">📜</div>
+            <h3>4. Interactive Ritual</h3>
+            <p>Sister lights the Diya, applies Tilak, ties the Rakhi, feeds Mithai, and receives a royal bond
+              certificate.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           VIEW 2: BROTHER STUDIO - UPLOAD PHOTO & GENERATE LINK
+           ========================================================================== -->
+      <section id="view-create" class="view-section">
+        <div class="section-title-wrap">
+          <h2>Brother Studio</h2>
+          <p>Upload your photo, add your sacred promise, and generate a personalized ceremony link for your sister.
+          </p>
+        </div>
+
+        <div class="studio-grid">
+          <!-- Left: Controls & Upload -->
+          <div class="glass-card gold-border">
+            <h3 style="font-size: 1.3rem; margin-bottom: 1.2rem; color: var(--gold-300);">1. Provide Your Photo & Details</h3>
+
+            <!-- Drag and drop zone -->
+            <div id="upload-dropzone" class="upload-zone">
+              <div class="upload-icon">📤</div>
+              <div style="font-weight: 700; font-size: 1.05rem; margin-bottom: 0.3rem;">Drag & drop your photo here
+              </div>
+              <div style="font-size: 0.85rem; color: var(--text-muted);">Supports JPG, PNG, WEBP (Max 10MB)</div>
+
+              <div class="upload-actions">
+                <button type="button" class="btn-festive btn-outline" style="font-size: 0.85rem;">Browse File</button>
+                <button type="button" id="btn-start-webcam" class="btn-festive btn-outline"
+                  style="font-size: 0.85rem;">📸 Take Selfie</button>
+              </div>
+              <input type="file" id="brother-photo-input" accept="image/jpeg,image/png,image/webp"
+                style="display: none;">
+            </div>
+
+            <!-- Webcam Live Stream Container -->
+            <div id="webcam-box" class="webcam-container">
+              <div class="webcam-video-wrap">
+                <video id="webcam-video" autoplay playsinline muted></video>
+              </div>
+              <button type="button" id="btn-snap-webcam" class="btn-festive btn-gold" style="font-size: 0.88rem;">📸
+                Capture Snapshot</button>
+            </div>
+
+            <!-- Quick Demo Sample Photos -->
+            <div class="samples-picker">
+              <span class="samples-label">Or quickly try with sample photos:</span>
+              <div class="samples-row">
+                <div class="sample-chip" onclick="avatarEngine.loadSample('assets/royal_indian_avatar_1787843850577.jpg')">
+                  <img src="assets/royal_indian_avatar_1787843850577.jpg" alt="Sample 1"> Royal Portrait
+                </div>
+                <div class="sample-chip" onclick="avatarEngine.loadSample('assets/avatar_royal.jpg')">
+                  <img src="assets/avatar_royal.jpg" alt="Sample 2"> Festive Classic
+                </div>
+                <div class="sample-chip" onclick="avatarEngine.loadSample('assets/avatar_pixar.jpg')">
+                  <img src="assets/avatar_pixar.jpg" alt="Sample 3"> Joyful Brother
+                </div>
+              </div>
+            </div>
+
+            <!-- Brother Information -->
+            <div style="margin-top: 1.8rem;">
+              <div class="form-group">
+                <label class="form-label" for="brother-name-input">Brother's Name <span style="color:var(--kumkum-400);">*</span></label>
+                <input type="text" id="brother-name-input" class="form-input" placeholder="Enter Brother's Name (e.g. Rahul Sharma)" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="brother-blessing-input">Personal Promise / Blessing to Sister (Optional)</label>
+                <input type="text" id="brother-blessing-input" class="form-input" placeholder="e.g. Dearest sister, I promise to always protect and cherish you! ❤️">
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Live Canvas Preview & Generation Actions -->
+          <div class="glass-card gold-border">
+            <h3 style="font-size: 1.3rem; margin-bottom: 1.2rem; color: var(--gold-300);">2. Photo Preview & Ceremony Link</h3>
+
+            <div class="preview-box">
+              <!-- AI Neural Progress Overlay -->
+              <div id="ai-progress-overlay" class="ai-progress-overlay">
+                <div class="ai-spinner"></div>
+                <div id="ai-status-text" class="ai-status-text">Processing Photo...</div>
+                <div id="ai-sub-text" class="ai-sub-text">Preparing your ceremonial profile</div>
+                <div class="progress-bar-track">
+                  <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                </div>
+              </div>
+
+              <!-- Avatar Canvas Target -->
+              <div class="avatar-canvas-wrapper">
+                <canvas id="avatar-canvas"></canvas>
+              </div>
+
+              <button type="button" id="btn-generate-avatar" class="btn-festive btn-gold"
+                style="font-size: 1.05rem; padding: 0.85rem 2rem; width: 100%;">
+                Generate Ceremony Link & Send 🚀
+              </button>
+
+              <!-- Generated Link Card -->
+              <div id="generated-link-card" class="generated-link-card" style="display: none;">
+                <div style="font-size: 0.85rem; font-weight: 700; color: var(--gold-400);">🎉 Your Unique Rakhi Link is
+                  Ready!</div>
+                <div class="link-input-group">
+                  <input type="text" id="shareable-rakhi-url" class="form-input" readonly
+                    value="https://rakhiverse.app/rakhi/rk_8921x">
+                  <button type="button" id="btn-copy-rakhi-link" class="btn-festive"
+                    style="padding: 0 1rem; font-size: 0.85rem;">Copy 📋</button>
+                </div>
+                <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+                  <button type="button" class="btn-festive"
+                    style="flex: 1; font-size: 0.85rem; background: #25d366; border: none;"
+                    onclick="certificateEngine.shareWhatsApp()">
+                    Share on WhatsApp 💬
+                  </button>
+                  <button type="button" id="btn-open-share-sheet" class="btn-festive btn-gold"
+                    style="flex: 1; font-size: 0.85rem;">
+                    Share Options 📤
+                  </button>
+                  <button type="button" class="btn-festive btn-outline" style="flex: 1; font-size: 0.85rem;"
+                    data-navigate="sister">
+                    Open Sister View 🪢
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           VIEW 3: SISTER LANDING VIEW
+           ========================================================================== -->
+      <section id="view-sister" class="view-section">
+        <div class="sister-landing-wrap glass-card gold-border">
+          <div class="sister-avatar-halo">
+            <img id="sister-view-brother-avatar" src="assets/royal_indian_avatar_1787843850577.jpg"
+              alt="Brother Avatar">
+            <div class="garland-decoration">🪢 Sacred Invitation</div>
+          </div>
+
+          <h2 id="sister-invitation-greeting"
+            style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.75rem;">
+            Your brother Rahul has invited you to celebrate Raksha Bandhan!
+          </h2>
+
+          <!-- Brother's Personal Promise / Blessing Card -->
+          <div id="sister-brother-blessing" class="brother-blessing-card" style="display: none;">
+            <div class="blessing-quote-mark">“</div>
+            <div id="sister-brother-blessing-text" class="blessing-quote-text"></div>
+            <div class="blessing-quote-author">✦ A Sacred Promise from Your Brother ✦</div>
+          </div>
+
+          <p style="color: var(--text-secondary); font-size: 1.05rem; margin-bottom: 1.5rem; line-height: 1.6;">
+            Perform the sacred virtual ceremony from anywhere in the world. Light the Diya, apply the Tilak, tie your
+            Rakhi on his wrist, and receive your personalized RakhiVerse Certificate.
+          </p>
+
+          <!-- Live Shubh Muhurat Badge -->
+          <div class="muhurat-live-pill">
+            <span class="live-dot"></span>
+            <span><strong>Shubh Muhurat Active:</strong> Auspicious Amrit Kaal & Abhijit Muhurat</span>
+          </div>
+
+          <div style="max-width: 480px; margin: 1.5rem auto 1rem;">
+            <div class="form-group" style="text-align: left;">
+              <label class="form-label" for="sister-name-input">1. Enter Your Name (Sister) <span style="color:var(--kumkum-400);">*</span></label>
+              <input type="text" id="sister-name-input" class="form-input" placeholder="Enter Sister's Name (e.g. Priya Sharma)" required>
+            </div>
+
+            <div class="form-group" style="text-align: left; margin-top: 1rem;">
+              <label class="form-label" for="sister-wish-input">2. Your Auspicious Wish / Blessing for Brother (Optional)</label>
+              <input type="text" id="sister-wish-input" class="form-input" placeholder="e.g. Wishing you infinite happiness, good health, and success always! 💕">
+            </div>
+
+            <button type="button" id="btn-start-sister-ceremony" class="btn-festive"
+              style="font-size: 1.15rem; width: 100%; padding: 0.95rem; margin-top: 0.5rem; background: linear-gradient(135deg, #ff69b4, #d90429);">
+              Start Sacred Ceremony 🪔
+            </button>
+          </div>
+
+          <div style="font-size: 0.82rem; color: var(--gold-300); margin-top: 1rem;">
+            ✦ Auspicious Vedic Rituals • Sacred Raksha Bandhan Celebration Video & Music Enabled
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           VIEW 4: CINEMATIC INTERACTIVE RAKHI CEREMONY
+           ========================================================================== -->
+      <section id="view-ceremony" class="view-section">
+        <div class="ceremony-pavilion">
+
+          <!-- Brother's Blessing Ribbon Above Ceremony -->
+          <div id="ceremony-brother-blessing" class="ceremony-blessing-ribbon" style="display: none;"></div>
+
+          <!-- Step Indicator -->
+          <div class="ceremony-tracker">
+            <div class="ceremony-step-dot active">
+              <span class="dot-circle">1</span>
+              <span>Light Diya</span>
+            </div>
+            <div class="ceremony-step-dot">
+              <span class="dot-circle">2</span>
+              <span>Apply Tilak</span>
+            </div>
+            <div class="ceremony-step-dot">
+              <span class="dot-circle">3</span>
+              <span>Tie Rakhi</span>
+            </div>
+            <div class="ceremony-step-dot">
+              <span class="dot-circle">4</span>
+              <span>Offer Sweet</span>
+            </div>
+            <div class="ceremony-step-dot">
+              <span class="dot-circle">5</span>
+              <span>Celebration</span>
+            </div>
+          </div>
+
+          <!-- Ceremony Stage Area -->
+          <div class="ceremony-stage">
+
+            <!-- Left: Brother Avatar Stage with Interactive Targets -->
+            <div class="brother-avatar-stage">
+              <div class="stage-avatar-frame" id="ceremony-avatar-interactive-frame" title="Click or tap anywhere on brother's forehead to place Tilak 🔴">
+                <img id="ceremony-brother-avatar" src="assets/royal_indian_avatar_1787843850577.jpg" alt="Brother Avatar">
+
+                <!-- Interactive Tilak Dynamic Pointer & Applied Mark -->
+                <div id="forehead-tilak-target" class="forehead-tilak-target" style="display:none;" title="Click anywhere on the photo to place Tilak">
+                  <span class="target-pulse-ring"></span>
+                  <span class="target-hint">Tap Anywhere to Place Tilak 🔴</span>
+                </div>
+                <div id="forehead-tilak-mark" class="forehead-tilak-mark"></div>
+              </div>
+
+              <!-- Interactive Sacred Rakhi Drop Target & Pedestal Badge (Placed cleanly below photo) -->
+              <div id="wrist-drop-target" class="wrist-drop-target">
+                <span class="target-pulse-ring"></span>
+                <span>Drop or Tap Rakhi Here 🪢</span>
+              </div>
+              <div id="wrist-tied-rakhi" class="wrist-tied-rakhi-badge">
+                <span class="rakhi-badge-icon">🪢</span>
+                <span>✨ Sacred Rakhi Blessed & Tied on Wrist ✨</span>
+              </div>
+            </div>
+
+            <!-- Right: Interactive Tools & Ritual Controller -->
+            <div class="ceremony-controls-box" id="ceremony-controls-box">
+              <div id="ceremony-step-instruction" class="ceremony-step-instruction">
+                Step 1: Click the auspicious brass <span>Diya</span> to ignite the sacred flame.
+              </div>
+
+              <!-- Tool 1: Interactive Diya -->
+              <div id="tool-diya-wrap" class="diya-interactive-wrap">
+                <div class="diya-brass-lamp">
+                  <div id="ceremony-diya-flame" class="diya-wick-flame"></div>
+                </div>
+                <div style="font-size: 0.9rem; font-weight: 700; color: var(--gold-300);">Click Diya to Light Sacred Flame 🪔</div>
+                <div style="font-size: 0.78rem; color: var(--text-muted);">Brings warmth, positivity, and divine blessings</div>
+              </div>
+
+              <!-- Tool 2: Tilak Wand -->
+              <div id="tool-tilak-wrap" class="tilak-wand-wrap" style="display: none;">
+                <div class="tilak-bowl">🔴</div>
+                <div>
+                  <div style="font-weight: 700; color: #fff;">Auspicious Kumkum & Sandalwood</div>
+                  <div style="font-size: 0.8rem; color: var(--gold-300);">Tap anywhere on your brother's forehead to place the sacred Tilak</div>
+                </div>
+              </div>
+
+              <!-- Tool 3: Draggable / Tappable Rakhi -->
+              <div id="tool-rakhi-wrap" class="draggable-rakhi-wrap" style="display: none;">
+                <div id="draggable-rakhi" class="draggable-rakhi-box">
+                  <img src="assets/rakhi_transparent.png" alt="Sacred Royal Rakhi" class="draggable-rakhi-img">
+                </div>
+                <div style="font-size: 0.85rem; font-weight: 700; color: var(--gold-300);">Drag or Tap Rakhi to Tie onto Wrist 🪢</div>
+                <div style="font-size: 0.76rem; color: var(--text-muted);">The eternal thread of protection and love</div>
+              </div>
+
+              <!-- Tool 4: Sweets Offering -->
+              <div id="tool-sweets-wrap" class="sweets-tray-wrap" style="display: none;">
+                <div class="sweet-item" title="Offer Kaju Katli">🍬 <div style="font-size:0.75rem; color:#fff; font-weight: 700;">Kaju Katli</div></div>
+                <div class="sweet-item" title="Offer Motichoor Laddoo">🥮 <div style="font-size:0.75rem; color:#fff; font-weight: 700;">Laddoo</div></div>
+                <div class="sweet-item" title="Offer Gulab Jamun">🍯 <div style="font-size:0.75rem; color:#fff; font-weight: 700;">Gulab Jamun</div></div>
+              </div>
+            </div>
+
+            <!-- Congratulations Card on Ceremony Finish -->
+            <div id="ceremony-congrats-card" class="ceremony-congrats-card" style="display: none;">
+              <h2 class="congrats-title">Happy Raksha Bandhan! ❤️</h2>
+
+              <!-- Dual Celebration Visual: Avatar Medallion + Brother Hand Wearing Rakhi -->
+              <div style="display: flex; gap: 1.25rem; justify-content: center; align-items: center; flex-wrap: wrap; margin: 1.5rem auto;">
+                <div class="congrats-avatar-container" style="margin: 0;">
+                  <img id="congrats-tied-avatar" class="congrats-tied-avatar-img" src="" alt="Rakhi Tied Avatar" style="display: none;">
+                  <div class="congrats-tied-badge">🪢 Sacred Tilak & Rakhi Blessed ✨</div>
+                </div>
+
+                <div class="congrats-avatar-container" style="margin: 0;">
+                  <img id="congrats-wrist-rakhi" class="congrats-tied-avatar-img" src="assets/brother_wrist_rakhi.jpg" alt="Brother Wrist Wearing Rakhi" style="display: block; border-color: var(--kumkum-400);">
+                  <div class="congrats-tied-badge" style="background: linear-gradient(135deg, rgba(217,4,41,0.9), rgba(255,153,51,0.9));">✨ Sacred Rakhi on Wrist 🪢</div>
+                </div>
+              </div>
+
+              <p id="congrats-greeting-text" class="blessing-quote">
+                May the divine bond between brother and sister be blessed with everlasting joy, protection, and boundless love!
+              </p>
+
+              <div id="congrats-sister-wish-display" class="congrats-sister-wish" style="display: none;"></div>
+
+              <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;">
+                <button type="button" class="btn-festive btn-gold" style="font-size: 0.95rem;" onclick="festiveAudio.openVideoModal()">
+                  🎬 Watch Ceremony Video 🪢
+                </button>
+                <button type="button" class="btn-festive" style="font-size: 0.95rem;" onclick="app.navigate('certificate')">
+                  View Ceremonial Certificate 📜
+                </button>
+                <button type="button" class="btn-festive" style="font-size: 0.95rem; background: #25d366;" onclick="certificateEngine.shareWhatsApp()">
+                  Share on WhatsApp 💬
+                </button>
+                <button type="button" class="btn-festive btn-outline" style="font-size: 0.95rem;" onclick="certificateEngine.downloadCertificatePNG()">
+                  Download Certificate 📥
+                </button>
+                <button type="button" class="btn-festive btn-outline" style="font-size: 0.95rem;" onclick="app.navigate('sister')">
+                  Perform Another Ceremony 🪔
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           VIEW 5: PERSONALIZED CERTIFICATE OF ETERNAL BOND
+           ========================================================================== -->
+      <section id="view-certificate" class="view-section">
+        <div class="section-title-wrap">
+          <h2>Official Certificate of Eternal Bond</h2>
+          <p>A sacred souvenir preserving the love and promise of Raksha Bandhan 2026.</p>
+        </div>
+
+        <div class="certificate-preview-container">
+          <div class="certificate-frame">
+            <div class="cert-header">
+              <h3 class="cert-title">CERTIFICATE OF ETERNAL BOND</h3>
+              <p class="cert-subtitle">Sacred Raksha Bandhan Ceremony 2026</p>
+            </div>
+
+            <div class="cert-sloka">
+              “येन बद्धो बली राजा दानवेन्द्रो महाबलः। तेन त्वामभिबध्नामि रक्षे मा चल मा चल॥”
+            </div>
+
+            <div class="cert-body-grid">
+              <div class="cert-avatar-frame">
+                <img id="cert-avatar-img" class="cert-avatar-img" src="assets/royal_indian_avatar_1787843850577.jpg"
+                  alt="Brother Avatar">
+              </div>
+              <div class="cert-text-lead">
+                This auspiciously certifies that <span id="cert-sister-name" class="cert-names-highlight">Priya Sharma</span> has tied the sacred virtual Rakhi of unconditional love, respect, and protection to her beloved brother <span id="cert-brother-name" class="cert-names-highlight">Rahul Sharma</span>.
+                <div id="cert-sister-wish-box" class="cert-sister-wish-box" style="display: none;"></div>
+              </div>
+            </div>
+
+            <div class="cert-footer-row">
+              <div>
+                <div id="cert-date-text" style="font-weight: 700; font-size: 0.92rem; color: #5c3a00;">Raksha Bandhan 2026</div>
+                <div id="cert-verification-id" style="font-size: 0.8rem; color: #888;">ID: RB-2026-894218</div>
+              </div>
+
+              <div class="cert-seal">
+                <span>✦ SACRED ✦</span>
+                <span>RAKHI</span>
+                <span>SEAL</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Certificate Action Buttons -->
+          <div class="cert-actions-bar">
+            <button type="button" class="btn-festive btn-gold" onclick="certificateEngine.downloadCertificatePNG()">
+              Download Certificate PNG 📥
+            </button>
+            <button type="button" class="btn-festive" style="background: #25d366;" onclick="certificateEngine.shareWhatsApp()">
+              Share on WhatsApp 💬
+            </button>
+            <button type="button" class="btn-festive btn-outline" onclick="certificateEngine.shareTwitter()">
+              Share on X 🐦
+            </button>
+            <button type="button" class="btn-festive btn-outline" onclick="certificateEngine.copyShareLink()">
+              Copy Link 🔗
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================================
+           CONSOLIDATED VIEW: ADMIN & INTELLIGENCE CENTER (Telemetry + AntiGravity AI + Diagnostics)
+           ========================================================================== -->
+      <section id="view-admin" class="view-section">
+        
+        <!-- Admin Header & Health Status Pills -->
+        <div class="admin-header-bar">
+          <div>
+            <h2 style="font-size: 1.8rem; margin-bottom: 0.3rem;">🛡️ Admin & Intelligence Center</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Consolidated telemetry dashboard, AntiGravity live AI agent, and database inspector.</p>
+          </div>
+
+          <div class="admin-status-pills">
+            <span class="admin-pill active-green">● SQLite WASM: Ready</span>
+            <span class="admin-pill active-purple">✦ Gemini 2.0 Flash: Live</span>
+            <span class="admin-pill">Session: Active</span>
+          </div>
+        </div>
+
+        <!-- Admin Sub-Navigation Tabs -->
+        <div class="admin-tabs-nav">
+          <button class="admin-tab-btn active" data-admintab="telemetry">
+            📊 Telemetry & Ceremony Logs
+          </button>
+          <button class="admin-tab-btn" data-admintab="brain">
+            ✦ AntiGravity AI Orchestrator
+          </button>
+          <button class="admin-tab-btn" data-admintab="system">
+            ⚙️ System & Diagnostics
+          </button>
+        </div>
+
+        <!-- ==================== ADMIN TAB 1: TELEMETRY & CEREMONY LOGS ==================== -->
+        <div id="admintab-telemetry" class="admin-tab-pane active-pane">
+          
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem;">
+            <h3 style="font-size: 1.25rem; color: var(--gold-300);">Live Ceremony Metrics</h3>
+            <div style="display:flex; gap:0.5rem;">
+              <button class="btn-festive btn-outline" style="font-size:0.82rem; padding:0.4rem 0.9rem;" onclick="dashboardEngine.load()">🔄 Refresh Data</button>
+              <button class="btn-festive btn-outline" style="font-size:0.82rem; padding:0.4rem 0.9rem;" onclick="dashboardEngine.exportCeremonyCSV()">📊 Export CSV</button>
+            </div>
+          </div>
+
+          <!-- Metrics Row -->
+          <div class="metrics-row">
+            <div class="metric-card">
+              <div class="metric-icon-corner">🪢</div>
+              <div class="metric-label">Total Rakhis Tied</div>
+              <div id="metric-total-tied" class="metric-value">4</div>
+              <div class="metric-trend">↑ 100% Ceremonies completed</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-icon-corner">👁️</div>
+              <div class="metric-label">Ceremony Link Visits</div>
+              <div id="metric-total-visits" class="metric-value">42</div>
+              <div class="metric-trend">↑ From 6 countries</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-icon-corner">⚡</div>
+              <div class="metric-label">Ceremony Conversion</div>
+              <div id="metric-conversion-rate" class="metric-value">88%</div>
+              <div class="metric-trend">High Sister Engagement</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-icon-corner">👑</div>
+              <div class="metric-label">Most Loved Style</div>
+              <div id="metric-top-style" class="metric-value" style="font-size: 1.4rem;">Royal Prince</div>
+              <div class="metric-trend">Top choice among sisters</div>
+            </div>
+          </div>
+
+          <!-- Sister Ceremony Logs Table -->
+          <div class="glass-card gold-border" style="margin-bottom: 2rem;">
+            <h3 style="font-size: 1.2rem; margin-bottom: 1.2rem; color: var(--gold-300);">Recent Sister Ceremony Logs</h3>
+            <div class="table-wrap">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Sister Name</th>
+                    <th>Location</th>
+                    <th>Device</th>
+                    <th>Date & Time</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="ceremony-logs-tbody">
+                  <!-- Injected by dashboard.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Avatar Gallery Switcher -->
+          <div class="glass-card">
+            <h3 style="font-size: 1.2rem; margin-bottom: 1rem; color: var(--gold-300);">Generated Avatar Styles Gallery</h3>
+            <div id="dashboard-avatar-gallery" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 1rem;">
+              <!-- Injected by dashboard.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== ADMIN TAB 2: ANTIGRAVITY AI BRAIN ==================== -->
+        <div id="admintab-brain" class="admin-tab-pane">
+          <div class="brain-wrapper">
+            <!-- Terminal -->
+            <div class="terminal-box">
+              <div class="terminal-header">
+                <span>ANTIGRAVITY v3.0 LIVE AI ORCHESTRATOR</span>
+                <span class="agent-status-badge">● 6 AGENTS ACTIVE</span>
+              </div>
+              <div id="brain-terminal-logs" style="white-space: pre-wrap; line-height: 1.5; font-family: monospace; font-size:0.88rem; max-height:400px; overflow-y:auto;">
+                <!-- Injected by brain.js -->
+              </div>
+            </div>
+
+            <!-- Control Center & Query Input -->
+            <div class="glass-card" style="border-color: rgba(168, 85, 247, 0.4);">
+              <h3 style="font-size: 1.3rem; margin-bottom: 1rem; color: #d8b4fe;">Orchestration Controls</h3>
+              
+              <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem;">
+                <button type="button" id="btn-run-brain-audit" class="btn-festive" style="background: linear-gradient(135deg, #a855f7, #6366f1); border: none;">
+                  Run System Audit 🔍
+                </button>
+                <button type="button" class="btn-festive btn-outline" onclick="antiGravityBrain.init()">
+                  Clear Logs
+                </button>
+              </div>
+
+              <!-- Agent Modules Grid -->
+              <div class="agent-cards-grid" style="margin-bottom: 1.5rem;">
+                <div class="agent-mini-card">
+                  <h4>📄 codeScanner.ts</h4>
+                  <p>Scans project files & AST trees for dead code and syntax integrity.</p>
+                </div>
+                <div class="agent-mini-card">
+                  <h4>🏛️ architectureAnalyzer.ts</h4>
+                  <p>Maps dependencies, routing flow, and data pipelines.</p>
+                </div>
+                <div class="agent-mini-card">
+                  <h4>🔒 securityAuditor.ts</h4>
+                  <p>Audits XSS vectors, input validation, and secure upload guards.</p>
+                </div>
+                <div class="agent-mini-card">
+                  <h4>⚡ performanceMonitor.ts</h4>
+                  <p>Tracks 60FPS animation pipelines and Web Audio latency.</p>
+                </div>
+              </div>
+
+              <!-- Query Input -->
+              <form id="brain-query-form" style="display: flex; gap: 0.5rem;">
+                <input type="text" id="brain-query-input" class="form-input" placeholder="Ask AntiGravity (e.g. 'How does avatar generation work?')...">
+                <button type="submit" class="btn-festive" style="background: #a855f7; border: none;">Query</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== ADMIN TAB 3: SYSTEM & DIAGNOSTICS ==================== -->
+        <div id="admintab-system" class="admin-tab-pane">
+          <div class="glass-card gold-border">
+            <h3 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--gold-300);">System Diagnostics & Data Management</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+              
+              <div style="background: rgba(255,255,255,0.03); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-glass);">
+                <h4 style="color: #fff; margin-bottom: 0.5rem;">🤖 Google Gemini AI Core</h4>
+                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                  Model: <code>gemini-2.0-flash</code><br>
+                  Status: <strong>Active & Connected</strong>
+                </div>
+                <button class="btn-festive btn-outline" style="font-size:0.8rem;" onclick="antiGravityBrain.askBrainQuestion('Check system health and latency')">Test AI Connection ⚡</button>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.03); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-glass);">
+                <h4 style="color: #fff; margin-bottom: 0.5rem;">🗄️ SQLite WASM Engine</h4>
+                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                  Storage: <code>sql.js WASM + IndexedDB</code><br>
+                  Persistence: <strong>Synchronized</strong>
+                </div>
+                <div style="display:flex; gap:0.5rem;">
+                  <button class="btn-festive btn-outline" style="font-size:0.8rem;" onclick="dashboardEngine.exportCeremonyCSV()">Export DB CSV 📥</button>
+                  <button class="btn-festive btn-outline" style="font-size:0.8rem; color:#ff6b6b; border-color:#ff6b6b;" onclick="if(confirm('Reset all demo ceremony logs in database?')){ localStorage.clear(); window.location.reload(); }">Reset DB ⚠️</button>
+                </div>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.03); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-glass);">
+                <h4 style="color: #fff; margin-bottom: 0.5rem;">👥 Active Portals</h4>
+                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+                  Brother Mode: <strong>Isolated</strong><br>
+                  Sister Ritual: <strong>Protected View</strong>
+                </div>
+                <button class="btn-festive btn-gold" style="font-size:0.8rem;" onclick="app.setRole('brother'); app.navigate('create');">Switch to Brother View</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- Sacred Rakhi Celebration Video Modal -->
+    <div id="rakhi-video-modal" class="rakhi-video-modal-backdrop" style="display:none;" role="dialog" aria-modal="true" aria-label="Sacred Rakhi Celebration Video">
+      <div class="rakhi-video-modal-dialog">
+        <div class="rakhi-video-header">
+          <div class="rakhi-video-title-wrap">
+            <span class="rakhi-video-badge">🪢 SACRED RAKHI CEREMONY</span>
+            <h3 class="rakhi-video-title">Auspicious Raksha Bandhan Celebration</h3>
+          </div>
+          <button type="button" id="btn-close-rakhi-video" class="btn-close-modal" aria-label="Close Video" onclick="festiveAudio.closeVideoModal(true)">✕</button>
+        </div>
+        
+        <div class="rakhi-video-wrapper">
+          <video id="rakhi-celebration-video" class="rakhi-video-element" src="assets/rakhi.mp4" playsinline controls preload="auto"></video>
+        </div>
+
+        <div class="rakhi-video-footer">
+          <div class="rakhi-video-caption">
+            <span>✨</span> The eternal bond of love, respect & protection
+          </div>
+          <div class="rakhi-video-actions">
+            <button type="button" class="btn-festive btn-gold" style="font-size:0.85rem; padding:0.4rem 1rem;" onclick="festiveAudio.toggleMusic()">
+              <span id="rakhi-modal-play-icon">⏸️ Pause</span>
+            </button>
+            <button type="button" class="btn-festive btn-outline" style="font-size:0.85rem; padding:0.4rem 1rem;" onclick="festiveAudio.closeVideoModal(false)">
+              Continue Celebration ➔
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rakhi Tied Image Modal -->
+    <div id="rakhi-tied-modal"
+      style="display:none;position:fixed;inset:0;background:rgba(10,4,20,0.85);z-index:9999;justify-content:center;align-items:center;"
+      role="dialog" aria-modal="true" aria-label="Rakhi Tied Image">
+      <div style="position:relative;max-width:520px;width:90%;">
+        <img id="rakhi-tied-modal-img" src="" alt="Rakhi Tied Ceremony"
+          style="width:100%;border-radius:1rem;border:2px solid var(--gold-400);box-shadow:0 0 60px rgba(255,215,0,0.3);">
+        <button onclick="document.getElementById('rakhi-tied-modal').style.display='none'"
+          style="position:absolute;top:-16px;right:-16px;background:var(--crimson);border:none;color:#fff;width:36px;height:36px;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="text-align: center; padding: 2.5rem 1.5rem; border-top: 1px solid var(--border-glass); color: var(--text-muted); font-size: 0.88rem;">
+      <div style="margin-bottom: 0.5rem;">
+        Made with ❤️ for Raksha Bandhan • <strong>RakhiVerse</strong> © 2026
+      </div>
+      <div style="display:flex; justify-content:center; gap:1.25rem; margin-top:0.5rem; font-size:0.85rem;">
+        <a data-navigate="home" style="color:var(--text-muted); cursor:pointer;">Home</a>
+        <span>•</span>
+        <a data-navigate="create" style="color:var(--text-muted); cursor:pointer;">Brother Studio</a>
+        <span>•</span>
+        <a data-navigate="sister" style="color:var(--text-muted); cursor:pointer;">Sister Portal</a>
+        <span>•</span>
+        <a data-navigate="admin" style="color:var(--gold-400); cursor:pointer; font-weight:600;">🛡️ Admin Panel</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- SQLite WASM via sql.js -->
+  <script src="https://sql.js.org/dist/sql-wasm.js"></script>
+
+  <!-- JavaScript Modules -->
+  <script src="js/audio.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/avatarEngine.js"></script>
+  <script src="js/ceremony.js"></script>
+  <script src="js/certificate.js"></script>
+  <script src="js/dashboard.js"></script>
+  <script src="js/brain.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/notifications.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

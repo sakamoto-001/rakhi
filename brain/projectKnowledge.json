@@ -1,0 +1,44 @@
+{
+  "projectName": "RakhiVerse",
+  "version": "1.0.0",
+  "architecture": "Single Page Application (SPA) / Modern Modular Frontend with AntiGravity Autonomous Orchestrator",
+  "description": "Production-ready digital Raksha Bandhan celebration platform featuring AI avatar stylization, interactive 9-step ceremony ritual, certificate generation, and ceremony analytics.",
+  "techStack": {
+    "frontend": "HTML5, Vanilla CSS Design System, Modular JavaScript, Web Audio API Synthesizer, HTML5 2D Canvas",
+    "animation": "Canvas 2D Physics (Petals & Confetti), CSS Keyframe transforms",
+    "storage": "LocalStorage Client Storage, SQLite/PostgreSQL Ready",
+    "orchestrator": "AntiGravity AI Brain Agent Mesh"
+  },
+  "modules": [
+    {
+      "name": "Avatar Studio",
+      "entry": "js/avatarEngine.js",
+      "description": "Handles 10 AI avatar styles, photo intake (Upload, Drag-and-drop, Webcam), neural canvas filters, and token generation."
+    },
+    {
+      "name": "Sacred Ceremony Pavilion",
+      "entry": "js/ceremony.js",
+      "description": "Interactive ritual with Diya lighting, Kumkum Tilak, Rakhi drag-and-drop with wrist snap, falling flower petals, and sweets offering."
+    },
+    {
+      "name": "Ceremonial Certificate Generator",
+      "entry": "js/certificate.js",
+      "description": "1600x1000 high-res canvas rendering of personalized certificate with Sanskrit blessings and PNG download."
+    },
+    {
+      "name": "Festive Audio Engine",
+      "entry": "js/audio.js",
+      "description": "Web Audio API synthesizer playing traditional Shehnai Ragas and temple bells."
+    },
+    {
+      "name": "Brother Analytics Dashboard",
+      "entry": "js/dashboard.js",
+      "description": "Telemetry aggregating sister visits, conversion rates, and ceremony logs."
+    },
+    {
+      "name": "AntiGravity Brain Orchestrator",
+      "entry": "brain/orchestrator.ts",
+      "description": "Central coordinator indexing modules, auditing vulnerabilities, and monitoring performance."
+    }
+  ]
+}
