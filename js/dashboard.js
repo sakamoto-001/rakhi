@@ -24,19 +24,23 @@ class DashboardEngine {
       }
     }
 
-    // Fallback to localStorage
+    // Fallback to localStorage or router
     if (!record) {
       record = JSON.parse(localStorage.getItem(`rakhi_brother_${this.activeToken}`) || 'null');
     }
+    if (!record && window.rakhiRouter && window.rakhiRouter.brotherRecord) {
+      record = window.rakhiRouter.brotherRecord;
+    }
 
     if (!record) {
+      const storedName = localStorage.getItem('rakhi_brother_name') || 'Brother';
       record = {
         id: this.activeToken,
-        name: 'Rahul Sharma',
-        avatarStyle: 'Royal Prince',
-        avatarStyleId: 'royal',
-        avatarUrl: 'assets/avatar_royal.jpg',
-        avatarImage: 'assets/avatar_royal.jpg',
+        name: storedName,
+        avatarStyle: 'Sacred Photo',
+        avatarStyleId: 'sacred',
+        avatarUrl: 'assets/royal_indian_avatar_1787843850577.jpg',
+        avatarImage: 'assets/royal_indian_avatar_1787843850577.jpg',
         createdAt: new Date().toISOString(),
         visits: 42,
         ceremonies: [

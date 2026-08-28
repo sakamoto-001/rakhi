@@ -6,17 +6,17 @@
 
 class CertificateEngine {
   constructor() {
-    this.brotherName = 'Rahul Sharma';
-    this.sisterName = 'Priya Sharma';
-    this.avatarUrl = 'assets/avatar_royal.jpg';
+    this.brotherName = 'Brother';
+    this.sisterName = 'Sister';
+    this.avatarUrl = 'assets/royal_indian_avatar_1787843850577.jpg';
     this.sisterWish = '';
     this.certId = 'RB-2026-' + Math.floor(100000 + Math.random() * 900000);
   }
 
   load(brotherName, sisterName, avatarUrl, sisterWish) {
-    this.brotherName = brotherName || 'Rahul Sharma';
-    this.sisterName = sisterName || 'Priya Sharma';
-    this.avatarUrl = avatarUrl || 'assets/avatar_royal.jpg';
+    this.brotherName = brotherName || localStorage.getItem('rakhi_brother_name') || 'Brother';
+    this.sisterName = sisterName || localStorage.getItem('rakhi_active_sister_name') || 'Sister';
+    this.avatarUrl = avatarUrl || 'assets/royal_indian_avatar_1787843850577.jpg';
     this.sisterWish = sisterWish || localStorage.getItem('rakhi_sister_wish') || '';
 
     // Update DOM Elements

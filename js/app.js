@@ -18,6 +18,11 @@ class RakhiVerseApp {
     if (window.rakhiDB) {
       const dbOk = await window.rakhiDB.init();
       console.log('[App] SQLite DB ready:', dbOk);
+      if (dbOk && window.rakhiRouter && window.rakhiRouter.brotherRecord) {
+        const r = window.rakhiRouter.brotherRecord;
+        window.rakhiDB.insertBrother(r.id, r.name, r.avatarImage || r.avatarUrl, 'Sacred Photo', r.personalMessage);
+        window.rakhiDB.insertLink(r.id, r.id);
+      }
     }
 
     // ── 2. Start geo lookup (fire-and-forget, don't block) ──────────
@@ -228,7 +233,7 @@ class RakhiVerseApp {
     }
 
     if (viewName === 'certificate' && window.certificateEngine) {
-      const token = localStorage.getItem('rakhi_active_token') || 'demo';
+      const token = localStorage.getItem('rakhi_active_token') || (window.rakhiRouter && window.rakhiRouter.token) || 'demo';
       let record = null;
       if (window.rakhiDB && window.rakhiDB.ready) {
         record = window.rakhiDB.getBrother(token);
@@ -237,15 +242,33 @@ class RakhiVerseApp {
           record.ceremonies = ceremonies;
         }
       }
-      if (!record) record = JSON.parse(localStorage.getItem(`rakhi_brother_${token}`) || '{}');
+      if (!record) record = JSON.parse(localStorage.getItem(`rakhi_brother_${token}`) || 'null');
+      if (!record && window.rakhiRouter && window.rakhiRouter.brotherRecord) {
+        record = window.rakhiRouter.brotherRecord;
+      }
+      if (!record && window.ceremonyEngine && window.ceremonyEngine.brotherData) {
+        record = window.ceremonyEngine.brotherData;
+      }
 
       const sisterWish = localStorage.getItem('rakhi_sister_wish') || '';
-      const sName = params.sisterName || (record.ceremonies && record.ceremonies[0] ? record.ceremonies[0].sisterName : 'Priya Sharma');
+      const sName = params.sisterName
+        || localStorage.getItem('rakhi_active_sister_name')
+        || (record && record.ceremonies && record.ceremonies[0] ? record.ceremonies[0].sisterName : 'Priya Sharma');
       
+      const bName = (record && record.name)
+        || (window.ceremonyEngine && window.ceremonyEngine.brotherData && window.ceremonyEngine.brotherData.name)
+        || localStorage.getItem('rakhi_brother_name')
+        || 'Brother';
+
+      const bAvatar = (record && (record.avatarUrl || record.avatarImage))
+        || (window.ceremonyEngine && window.ceremonyEngine.rakhiTiedImageUrl)
+        || (window.ceremonyEngine && window.ceremonyEngine.brotherData && (window.ceremonyEngine.brotherData.avatarUrl || window.ceremonyEngine.brotherData.avatarImage))
+        || 'assets/royal_indian_avatar_1787843850577.jpg';
+
       window.certificateEngine.load(
-        record.name || 'Rahul Sharma',
+        bName,
         sName,
-        record.avatarUrl || record.avatarImage || 'assets/avatar_royal.jpg',
+        bAvatar,
         sisterWish
       );
     }
@@ -256,14 +279,18 @@ class RakhiVerseApp {
 
     if (viewName === 'ceremony') {
       if (window.ceremonyEngine && !window.ceremonyEngine.brotherData) {
-        const token = localStorage.getItem('rakhi_active_token') || 'demo';
+        const token = localStorage.getItem('rakhi_active_token') || (window.rakhiRouter && window.rakhiRouter.token) || 'demo';
         let record = null;
         if (window.rakhiDB && window.rakhiDB.ready) {
           record = window.rakhiDB.getBrother(token);
         }
-        if (!record) record = JSON.parse(localStorage.getItem(`rakhi_brother_${token}`) || '{}');
+        if (!record) record = JSON.parse(localStorage.getItem(`rakhi_brother_${token}`) || 'null');
+        if (!record && window.rakhiRouter && window.rakhiRouter.brotherRecord) {
+          record = window.rakhiRouter.brotherRecord;
+        }
         const sWish = localStorage.getItem('rakhi_sister_wish') || '';
-        window.ceremonyEngine.init(record, 'Priya Sharma', sWish);
+        const sName = localStorage.getItem('rakhi_active_sister_name') || 'Priya Sharma';
+        window.ceremonyEngine.init(record, sName, sWish);
       }
     }
 
@@ -351,6 +378,10 @@ class RakhiVerseApp {
     if (!record) {
       record = JSON.parse(localStorage.getItem(`rakhi_brother_${token}`) || 'null');
     }
+    // Fallback to router's in-memory decoded record
+    if (!record && window.rakhiRouter && window.rakhiRouter.brotherRecord) {
+      record = window.rakhiRouter.brotherRecord;
+    }
 
     const tokenBox = document.getElementById('sister-token-input-box');
     if (!record && token === 'demo') {
@@ -358,9 +389,13 @@ class RakhiVerseApp {
       if (tokenBox) tokenBox.style.display = 'block';
     }
 
-    const brotherName = (record && record.name) || 'Rahul Sharma';
-    const avatarUrl = (record && (record.avatarUrl || record.avatarImage)) || 'assets/avatar_royal.jpg';
-    const personalMsg = (record && record.personalMessage) || 'Dearest sister, I promise to always protect and cherish you! ❤️';
+    const brotherName = (record && record.name)
+      || localStorage.getItem('rakhi_brother_name')
+      || 'Brother';
+    const avatarUrl = (record && (record.avatarUrl || record.avatarImage))
+      || 'assets/royal_indian_avatar_1787843850577.jpg';
+    const personalMsg = (record && record.personalMessage)
+      || 'Dearest sister, I promise to always protect and cherish you! ❤️';
 
     const greetText = document.getElementById('sister-invitation-greeting');
     const avatarImg = document.getElementById('sister-view-brother-avatar');
@@ -485,10 +520,10 @@ class RakhiVerseApp {
         if (window.avatarEngine) {
           const result = await window.avatarEngine.generateAvatar(name);
 
-          // Build the shareable URL using the router
+          // Build the shareable URL using the router with full payload
           const shareUrl = window.rakhiRouter
-            ? window.rakhiRouter.buildShareUrl(result.token)
-            : `${window.location.origin}${window.location.pathname}?token=${result.token}`;
+            ? window.rakhiRouter.buildShareUrl(result.token, result.brotherRecord)
+            : `${window.location.origin}${window.location.pathname}?token=${result.token}&bname=${encodeURIComponent(name)}`;
 
           const linkCard = document.getElementById('generated-link-card');
           const shareUrlInput = document.getElementById('shareable-rakhi-url');
@@ -587,13 +622,25 @@ class RakhiVerseApp {
         localStorage.setItem('rakhi_active_sister_name', sName);
         localStorage.setItem('rakhi_sister_wish', sWish);
 
-        const token = localStorage.getItem('rakhi_active_token') || 'demo';
+        const token = localStorage.getItem('rakhi_active_token') || (window.rakhiRouter && window.rakhiRouter.token) || 'demo';
 
         let record = null;
         if (window.rakhiDB && window.rakhiDB.ready) {
           record = window.rakhiDB.getBrother(token);
         }
-        if (!record) record = JSON.parse(localStorage.getItem(`rakhi_brother_${token}`) || '{}');
+        if (!record) record = JSON.parse(localStorage.getItem(`rakhi_brother_${token}`) || 'null');
+        if (!record && window.rakhiRouter && window.rakhiRouter.brotherRecord) {
+          record = window.rakhiRouter.brotherRecord;
+        }
+        if (!record) {
+          record = {
+            id: token,
+            name: localStorage.getItem('rakhi_brother_name') || 'Brother',
+            avatarUrl: 'assets/royal_indian_avatar_1787843850577.jpg',
+            avatarImage: 'assets/royal_indian_avatar_1787843850577.jpg',
+            personalMessage: 'Dearest sister, I promise to always protect and cherish you! ❤️'
+          };
+        }
 
         if (window.ceremonyEngine) {
           window.ceremonyEngine.init(record, sName, sWish);

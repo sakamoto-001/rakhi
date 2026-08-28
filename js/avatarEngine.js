@@ -212,9 +212,26 @@ class AvatarEngine {
 
     // Generate token and save to DB
     const token = 'rk_' + Math.random().toString(36).substring(2, 9);
-    const avatarDataUrl = this.canvas.toDataURL('image/png');
+    const avatarDataUrl = this.canvas.toDataURL('image/jpeg', 0.85);
     const name = brotherName ? brotherName.trim() : 'Brother';
     const personalMessage = document.getElementById('brother-blessing-input')?.value || '';
+
+    // Create a compact thumbnail for cross-device URL sharing
+    let shareAvatar = '';
+    if (this.currentImageDataUrl && (this.currentImageDataUrl.startsWith('assets/') || this.currentImageDataUrl.startsWith('http'))) {
+      shareAvatar = this.currentImageDataUrl;
+    } else {
+      try {
+        const thumbCanvas = document.createElement('canvas');
+        thumbCanvas.width = 200;
+        thumbCanvas.height = 200;
+        const tCtx = thumbCanvas.getContext('2d');
+        tCtx.drawImage(this.canvas, 0, 0, 200, 200);
+        shareAvatar = thumbCanvas.toDataURL('image/jpeg', 0.65);
+      } catch (e) {
+        shareAvatar = avatarDataUrl;
+      }
+    }
 
     // Save to SQLite Database
     if (window.rakhiDB && window.rakhiDB.ready) {
@@ -229,6 +246,8 @@ class AvatarEngine {
       name: name,
       avatarStyle: 'Sacred Photo',
       avatarUrl: avatarDataUrl,
+      avatarImage: avatarDataUrl,
+      shareAvatar: shareAvatar,
       personalMessage: personalMessage,
       createdAt: new Date().toISOString(),
       visits: 1,
@@ -236,6 +255,7 @@ class AvatarEngine {
     };
     localStorage.setItem(`rakhi_brother_${token}`, JSON.stringify(brotherRecord));
     localStorage.setItem('rakhi_active_token', token);
+    localStorage.setItem('rakhi_brother_name', name);
 
     return { token, avatarDataUrl, brotherRecord };
   }

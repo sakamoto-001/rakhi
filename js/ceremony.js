@@ -20,13 +20,14 @@ class CeremonyEngine {
 
   init(brotherData, sisterName, sisterWish) {
     this.brotherData = brotherData || {
-      id: 'demo',
-      name: 'Rahul Sharma',
-      avatarUrl: 'assets/avatar_royal.jpg',
-      avatarStyle: 'Royal Prince',
+      id: localStorage.getItem('rakhi_active_token') || 'demo',
+      name: localStorage.getItem('rakhi_brother_name') || 'Brother',
+      avatarUrl: 'assets/royal_indian_avatar_1787843850577.jpg',
+      avatarImage: 'assets/royal_indian_avatar_1787843850577.jpg',
+      avatarStyle: 'Sacred Photo',
       personalMessage: 'Dearest sister, I promise to always protect and cherish you! ❤️'
     };
-    this.sisterName = sisterName || 'Priya Sharma';
+    this.sisterName = sisterName || localStorage.getItem('rakhi_active_sister_name') || 'Sister';
     this.sisterWish = sisterWish || localStorage.getItem('rakhi_sister_wish') || '';
     this.currentStep = 1;
     this.rakhiTiedImageUrl = null;
