@@ -2379,4 +2379,46 @@ main {
   box-shadow: 0 0 25px rgba(255, 215, 0, 0.7);
 }
 
+/* ==========================================================================
+   Admin Password Lock Overlay
+   ========================================================================== */
+.admin-auth-overlay {
+  max-width: 460px;
+  margin: 3rem auto;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  animation: adminFadeIn 0.6s ease-out;
+}
+
+@keyframes adminFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.admin-auth-overlay .form-input {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-glass);
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius-md);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.admin-auth-overlay .form-input:focus {
+  border-color: var(--gold-400);
+  box-shadow: 0 0 15px var(--gold-glow);
+  outline: none;
+}
+
+.admin-auth-overlay .form-input.shake {
+  animation: shakeInput 0.45s ease-in-out;
+}
+
+@keyframes shakeInput {
+  0%, 100% { transform: translateX(0); }
+  15%, 45%, 75% { transform: translateX(-8px); }
+  30%, 60%, 90% { transform: translateX(8px); }
+}
+
 

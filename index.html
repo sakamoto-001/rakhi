@@ -603,6 +603,28 @@
            ========================================================================== -->
       <section id="view-admin" class="view-section">
         
+        <!-- Admin Password Lock Gate -->
+        <div id="admin-lock-overlay" class="admin-auth-overlay glass-card gold-border">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">🔐</div>
+          <h2 style="font-size: 1.6rem; margin-bottom: 0.5rem; color: #fff;">Admin Access Required</h2>
+          <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 1.5rem; line-height: 1.5;">
+            This area is protected. Enter the admin password to access the Intelligence Center, Telemetry Dashboard, and System Diagnostics.
+          </p>
+          <div class="form-group" style="text-align: left; max-width: 340px; margin: 0 auto;">
+            <label class="form-label" for="admin-password-input">🔑 Password</label>
+            <input type="password" id="admin-password-input" class="form-input" placeholder="Enter admin password..." autocomplete="off">
+          </div>
+          <div id="admin-password-error" style="color: var(--kumkum-400); font-size: 0.85rem; margin-top: 0.5rem; display: none;">
+            ⚠️ Incorrect password. Access denied.
+          </div>
+          <button type="button" id="btn-admin-unlock" class="btn-festive btn-gold" style="font-size: 1rem; padding: 0.75rem 2.5rem; margin-top: 1.25rem; width: 100%; max-width: 340px;">
+            Unlock Admin Panel 🛡️
+          </button>
+        </div>
+
+        <!-- Admin Content (Hidden until unlocked) -->
+        <div id="admin-content-area" style="display: none;">
+
         <!-- Admin Header & Health Status Pills -->
         <div class="admin-header-bar">
           <div>
@@ -798,6 +820,8 @@
             </div>
           </div>
         </div>
+
+        </div><!-- /admin-content-area -->
 
       </section>
 

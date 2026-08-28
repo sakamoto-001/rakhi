@@ -208,8 +208,23 @@ class RakhiVerseApp {
 
     // Lifecycle hooks
     if (viewName === 'admin') {
-      if (window.dashboardEngine) window.dashboardEngine.load();
-      if (window.antiGravityBrain) window.antiGravityBrain.init();
+      const isAuthed = sessionStorage.getItem('rakhi_admin_auth') === 'true';
+      const lockOverlay = document.getElementById('admin-lock-overlay');
+      const contentArea = document.getElementById('admin-content-area');
+      if (isAuthed) {
+        if (lockOverlay) lockOverlay.style.display = 'none';
+        if (contentArea) contentArea.style.display = '';
+        if (window.dashboardEngine) window.dashboardEngine.load();
+        if (window.antiGravityBrain) window.antiGravityBrain.init();
+      } else {
+        if (lockOverlay) lockOverlay.style.display = '';
+        if (contentArea) contentArea.style.display = 'none';
+        // Focus password input after a tick
+        setTimeout(() => {
+          const pwInput = document.getElementById('admin-password-input');
+          if (pwInput) pwInput.focus();
+        }, 200);
+      }
     }
 
     if (viewName === 'certificate' && window.certificateEngine) {
@@ -433,6 +448,9 @@ class RakhiVerseApp {
       });
     });
 
+    // ── Admin Panel Password Gate ──────────────────────────────────────
+    this.setupAdminAuth();
+
     // ── Generate Avatar (Strict Validation) ─────────────────────────
     const btnGenerate = document.getElementById('btn-generate-avatar');
     const brotherNameInput = document.getElementById('brother-name-input');
@@ -613,6 +631,51 @@ class RakhiVerseApp {
         if (e.target === modal) modal.style.display = 'none';
       });
     }
+  }
+
+  setupAdminAuth() {
+    const unlockBtn = document.getElementById('btn-admin-unlock');
+    const pwInput = document.getElementById('admin-password-input');
+    const errorMsg = document.getElementById('admin-password-error');
+    const lockOverlay = document.getElementById('admin-lock-overlay');
+    const contentArea = document.getElementById('admin-content-area');
+
+    if (!unlockBtn || !pwInput) return;
+
+    const verifyPassword = () => {
+      const entered = pwInput.value.trim();
+      if (entered.toLowerCase() === 'rakshyabandhan') {
+        sessionStorage.setItem('rakhi_admin_auth', 'true');
+        if (errorMsg) errorMsg.style.display = 'none';
+        if (lockOverlay) lockOverlay.style.display = 'none';
+        if (contentArea) contentArea.style.display = '';
+        pwInput.value = '';
+
+        if (window.dashboardEngine) window.dashboardEngine.load();
+        if (window.antiGravityBrain) window.antiGravityBrain.init();
+
+        if (window.notifications) {
+          window.notifications.showToast('🛡️ Admin Access Granted! Welcome to Intelligence Center.', 'success', 3000);
+        }
+      } else {
+        if (errorMsg) errorMsg.style.display = 'block';
+        pwInput.classList.remove('shake');
+        void pwInput.offsetWidth; // trigger reflow
+        pwInput.classList.add('shake');
+        pwInput.focus();
+        if (window.notifications) {
+          window.notifications.showToast('⚠️ Incorrect password. Access denied.', 'error', 2500);
+        }
+      }
+    };
+
+    unlockBtn.addEventListener('click', verifyPassword);
+    pwInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        verifyPassword();
+      }
+    });
   }
 }
 
